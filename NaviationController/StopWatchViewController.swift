@@ -1,22 +1,19 @@
 //
-//  ViewController.swift
-//  NaviationController
+//  StopWatchViewController.swift
+//  test natvo
 //
-//  Created by JINSEOK on 2023/02/07.
+//  Created by JINSEOK on 2023/02/06.
 //
 
 import UIKit
 
-class WorldTimeViewController: UIViewController {
+class StopWatchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .darkGray
-        navigationItem.title = "세계 시계"
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        self.view.backgroundColor = .systemYellow
+        navigationItem.title = "스톱워치"
 
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
         // Do any additional setup after loading the view.
     }
     

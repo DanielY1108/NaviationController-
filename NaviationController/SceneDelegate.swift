@@ -13,10 +13,47 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        // 탭바 컨트롤러를 생성합니다.
+        let tabBarVC = UITabBarController()
+        
+        // 시계 앱을 켜보면 worldTimeVC와 alarmVC가 각각 네비게이션 바를 갖고 있으므로
+        // 각각의 컨트롤러를 네비게이션 컨트롤러로 설정을 해줬습니다.
+        // 밑에 추가하기 작업을 위해 미리 다른 컨트롤러들의 인스턴스 생성함.
+        let worldTimeVC = UINavigationController(rootViewController: WorldTimeViewController())
+        let alarmVC = UINavigationController(rootViewController: AlarmViewController())
+        let stopWatchVC = StopWatchViewController()
+        let timerVC = TimerViewController()
+        
+        // 뷰 컨트롤러들을 탭바로 사용하기 위해 배열에 추가를 해줍시다.
+        // 배열의 Index 0 부터 순서대로 뷰 컨트롤러를 위치 합니다.
+        tabBarVC.setViewControllers([worldTimeVC, alarmVC, stopWatchVC, timerVC], animated: false)
+        // 기타 설정들
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.tabBar.backgroundColor = .black
+        tabBarVC.tabBar.tintColor = .orange
+        tabBarVC.tabBar.unselectedItemTintColor = .gray
+        
+        // 탭바 이름을 설정해 줍니다.
+        worldTimeVC.title = "세계 시계"
+        alarmVC.title = "알람"
+        stopWatchVC.title = "스톱워치"
+        timerVC.title = "타이머"
+        
+        // 탭바 이미지 설정 (UIImage를 통해)
+        guard let items = tabBarVC.tabBar.items else { return }
+        items[0].image = UIImage(systemName: "globe")
+        items[1].image = UIImage(systemName: "alarm.fill")
+        items[2].image = UIImage(systemName: "stopwatch.fill")
+        items[3].image = UIImage(systemName: "timer")
+        
+        // 기본루트뷰를 탭바 컨트롤러로 설정
+        window?.rootViewController = tabBarVC
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
